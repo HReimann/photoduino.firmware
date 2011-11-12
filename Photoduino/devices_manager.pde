@@ -345,7 +345,7 @@ void laser_turnOff(){
 void electrovalve_makeDrops(){
   
   if(system_devicePortType == DEVICE_PORT_TYPE_ELECTROVALVE) {
-     for(unsigned int count = 0; count < sensorTriggerMode_dropsCount; count++){
+     for(unsigned int count = 0; count < sensorTriggerMode_dropsCount && cancelFlag==false; count++){
         if (count>0) delay(sensorTriggerMode_dropsInterval);
         digitalWrite(PINS_ELECTROVALVE,HIGH);
         delay(sensorTriggerMode_dropsDuration);

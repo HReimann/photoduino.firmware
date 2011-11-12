@@ -85,7 +85,7 @@ void circularList_matchBy(unsigned int *value, unsigned int targetValue, unsigne
   }  
 }
 
-// Code to print out the free memory form aJSON library example
+// Code to print out the free memory (taked from aJSON library example)
 
 struct __freelist {
   size_t sz;
