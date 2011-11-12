@@ -1,7 +1,9 @@
 #Changelog:
  
-##current development release
+##release 0.10 (current development)
 
+ - Use progmem for allocate strings in program memory and reduce compiled code size
+ - New progress bar interface element
  - Added confirmation message when you reset config in any execution mode to avoid accidental losses
  - Fixed some messages spelling errors
  - Now the shutterlag is a system parameter because it depends of the camera model and is the same in all the run modes. 
