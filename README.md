@@ -7,14 +7,11 @@
     |_|  THE OPENSOURCE CAMERA CONTROLLER BASED ON ARDUINO                                                         
 
 
-
 #Photoduino firmware
 
 This code is the firmware for Photoduino Shields (1.0, 2.0 and 3.0 hardware versions) as Arduino Scketch.
 
 Visit the project site: <http://www.photoduino.com>
-
-* * *
 
 ## How to upload firmware to the board
 
@@ -59,8 +56,6 @@ Visit the project site: <http://www.photoduino.com>
 
   * If all goes well, you have the firmware loaded on your plate and you should hear one beep.
   * If not text appears on the LCD screen, adjust the contrast potenciometer.
-
-* * *
 
 ##Firmware changelog:
  
