@@ -59,7 +59,7 @@ Visit the project site: <http://www.photoduino.com>
 
 ##Firmware changelog:
  
-##release 0.10 (current development)
+###release 0.10 (current development)
 
  - Use progmem for allocate strings in program memory and reduce compiled code size
  - New progress bar interface element
@@ -74,7 +74,7 @@ Visit the project site: <http://www.photoduino.com>
  - New key input holding A+B buttons to use it in numeric sensor tunning to match sensor and limit values to equal.
   
  
-##release 0.9 
+###release 0.9 
 
  - Added new "Mirror lockup" funtionality in all sensor modes
  - Added new "Numeric mode" for tunning sensor limit with more precision. 
@@ -84,15 +84,15 @@ Visit the project site: <http://www.photoduino.com>
  - Added a compile value to define the pulse width for shooting the flash.
  - Some other minor fixes and code reviews.  
  
-##release 0.8
+###release 0.8
 
  - Bug fixed on some cameras like canon 50d with prebulb yes. 
  
-##release 0.7 
+###release 0.7 
 
  - Bug fixed on shutterEnd with prebulb yes. 
   
-##release 0.6 
+###release 0.6 
 
  - New mode "Flash slave" uses the LDR sensor to shoot the flashes like a 
    slave flash.
@@ -100,7 +100,7 @@ Visit the project site: <http://www.photoduino.com>
    Current available languages are spanish and english
  - Fixed a bug with cycles on intervalmode
  
-##release 0.5 
+###release 0.5 
 
  - Now each sensor have a run mode and custom config
  - New parameter "cycles" also on sensor trigger modes
@@ -114,7 +114,7 @@ Visit the project site: <http://www.photoduino.com>
  - Re-organization of .pde files
  - Many code improvements to reduce code size and enhace the organization
  
-##release 0.4
+###release 0.4
 
  - Keyboard reading is completly re-writed code to enhace control and use 
    debounce and hold time
@@ -122,7 +122,7 @@ Visit the project site: <http://www.photoduino.com>
  - added reference of default shutterlag times for canon DSLR cameras
  - (function setSensorLimit) now uses two buttons for up and down the value
   
-##release 0.3
+###release 0.3
 
  - (function setIntValue) Bug fixed when sets numeric values higher than 59999 
  - (function setIntValue) Numeric values now uses two buttons for up and down 
@@ -130,7 +130,7 @@ Visit the project site: <http://www.photoduino.com>
  - (PINS_BTN_A and PINS_BTN_B) Interchanged to be the same reference in silkscreen
  - (function keyScan) Bug fixed
  
-##release 0.2
+###release 0.2
 
  - New file organization
  - Various improvements
