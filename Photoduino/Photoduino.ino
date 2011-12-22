@@ -1,8 +1,41 @@
-/* ------------------------------------------------------------------------------------------- *
- *                                      CONFIGURATION VALUES:                                  *
- *                             You can set the next configuration values                       *
- *                              before compile and upload this sketch                          * 
- * ------------------------------------------------------------------------------------------- */
+/*
+ *             _                          _       _                  
+ *            | |           _            | |     (_)                 
+ *       ____ | |__   ___ _| |_  ___   __| |_   _ _ ____   ___       
+ *      |  _ \|  _ \ / _ (_   _)/ _ \ / _  | | | | |  _ \ / _ \       
+ *      | |_| | | | | |_| || |_| |_| ( (_| | |_| | | | | | |_| |      
+ *      |  __/|_| |_|\___/  \__)\___/ \____|____/|_|_| |_|\___/       
+ *      |_|  THE OPENSOURCE CAMERA CONTROLLER BASED ON ARDUINO         
+ *       
+ *
+ * @name        Photoduino Firmware
+ * @version     0.10
+ * @web         http://www.photoduino.com
+ * @repository  https://github.com/Photoduino/photoduino-firmware
+ * @license     https://github.com/Photoduino/photoduino-firmware/blob/master/Photoduino/LICENSE.txt
+ * @author      http://www.kalanda.com
+ *
+ * This file is part of Photoduino.
+ *
+ * Photoduino is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Photoduino is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* ------------------------------------------------------------------------------------------------ *
+ *                                         CONFIGURATION VALUES:                                    *
+ *                                You can set the next configuration values                         *
+ *                                 before compile and upload this sketch                            *
+ * ------------------------------------------------------------------------------------------------ */
 
 //
 // Language of menus:
@@ -73,7 +106,7 @@
 // - SENSOR_TUNNING_VISUAL
 // - SENSOR_TUNNING_NUMERIC
 //
-#define DEFAULT_SENSOR_TUNNING_MODE              SENSOR_TUNNING_VISUAL
+#define DEFAULT_SENSOR_TUNING_MODE              SENSOR_TUNING_VISUAL
 
 // 
 // Pulse width for shooting flashes:
@@ -101,31 +134,9 @@
  *                        You don't need to modify the code below this lines                   * 
  * ------------------------------------------------------------------------------------------- */
 
-/**
- *
- * - Photoduino
- * - http://www.photoduino.com/
- *
- * This file is part of Photoduino.
- *
- * Photoduino is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Photoduino is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-
 // Signature and version codes 
-#define SIGNATURE_CODE1             0x12 // day 
-#define SIGNATURE_CODE2             0x11 // month
+#define SIGNATURE_CODE1             0x22 // day 
+#define SIGNATURE_CODE2             0x12 // month
 #define SIGNATURE_CODE3             0x20 // century
 #define SIGNATURE_CODE4             0x11 // year of century
 #define CODE_MAJOR_VERSION          0x00 // major version
@@ -136,7 +147,7 @@
 #define DEFAULT_system_useSpeaker                     true
 #define DEFAULT_system_useFlash1                      true
 #define DEFAULT_system_useFlash2                      true
-#define DEFAULT_system_sensorTunningMode              DEFAULT_SENSOR_TUNNING_MODE
+#define DEFAULT_system_sensorTuningMode               DEFAULT_SENSOR_TUNING_MODE
 #define DEFAULT_system_cameraShutterLag               DEFAULT_SHUTTERLAG
 #define DEFAULT_system_cameraMirrorLockUpTimeout      DEFAULT_CAMERA_MIRROR_LOCKUP_TIMEOUT
 #define DEFAULT_system_devicePortType                 DEFAULT_DEVICE_PORT_TYPE
@@ -209,8 +220,8 @@
 #define SENSOR_TYPE_SHOCK                3 // Shock sensor
 
 // Sensor tunning modes
-#define SENSOR_TUNNING_VISUAL            0 // Visual 
-#define SENSOR_TUNNING_NUMERIC           1 // Numeric 
+#define SENSOR_TUNING_VISUAL            0 // Visual 
+#define SENSOR_TUNING_NUMERIC           1 // Numeric 
 
 // Sensor limit modes
 #define SENSOR_MODE_LOWER                0 // for triggering by lower values
@@ -256,7 +267,7 @@
 #define SYMBOL_BOX          0xff // Black box
 
 // EEPROM size in bytes
-#define EEPROM_SIZE         512  
+#define EEPROM_SIZE         0x200  
 
 // EEPROM Addresses for signature code and version of firmware
 #define EE_ADDR_SIGNATURE_CODE1                      0x00 // BYTE
@@ -269,7 +280,7 @@
 // EEPROM Addresses for system config
 #define EE_ADDR_system_useBacklight                  0x10 // BYTE
 #define EE_ADDR_system_useSpeaker                    0x12 // BYTE
-#define EE_ADDR_system_sensorTunningMode             0x14 // BYTE
+#define EE_ADDR_system_sensorTuningMode              0x14 // BYTE
 #define EE_ADDR_system_cameraShutterLag              0x16 // WORD
 #define EE_ADDR_system_cameraMirrorLockUpTimeout     0x18 // WORD
 #define EE_ADDR_system_useFlash1                     0x1A // BYTE
@@ -303,10 +314,10 @@
 #define EE_ADDR_sensorTriggerMode_dropsInterval      0x6C // WORD
 
 // Import libraries 
-#include <LiquidCrystal.h>  
-#include <EEPROM.h>
 #include <avr/pgmspace.h>
 #include LANGUAGE_FILE
+#include <LiquidCrystal.h>  
+#include <EEPROM.h>
 
 // LiquidCrystal LCD control object instance
 LiquidCrystal lcd(PINS_LCD_RS, PINS_LCD_ENABLE, PINS_LCD_DB4, PINS_LCD_DB5, PINS_LCD_DB6, PINS_LCD_DB7);
@@ -318,12 +329,11 @@ volatile boolean cancelFlag = false;    // Flag used to abort interrupt mode
 byte         lastKey = KEY_NONE;        // Last key pressed
 boolean      flagHoldKey = false;       // Flag to ignore keys after a hold key
 byte         lastProgressBarValue = 0;  // Last value of progress bar
-byte         incomingByte = 0;          // Last byte received at serial
 
 // System config in ram
 boolean      system_useBacklight;    
 boolean      system_useSpeaker;
-byte         system_sensorTunningMode;
+byte         system_sensorTuningMode;
 unsigned int system_cameraShutterLag;
 unsigned int system_cameraMirrorLockUpTimeout;
 boolean      system_useFlash1;
@@ -399,7 +409,6 @@ void setup()
 
   // Init device connected to device port
   device_init();
-  
 
 }
 

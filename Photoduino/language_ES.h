@@ -1,4 +1,21 @@
-// Messages list                                                  "123456789012345"
+/*
+ * This file is part of Photoduino.
+ *
+ * Photoduino is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Photoduino is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+ // Messages list                                                  "123456789012345"
 const prog_char PROGMEM MSG_LANGUAGE_CODE[] =                     "ES";
 const prog_char PROGMEM MSG_PHOTODUINO_V[] =                      "Photoduino v";
 const prog_char PROGMEM MSG_READY[] =                             "Preparado!";
@@ -44,9 +61,9 @@ const prog_char PROGMEM MSG_UNITS_DROPS[] =                       "Gotas";
 const prog_char PROGMEM MSG_SHOOTINGMODE_NORMAL[] =               "Normal";
 const prog_char PROGMEM MSG_SHOOTINGMODE_PREBULB[] =              "Bulb Previo";
 const prog_char PROGMEM MSG_SHOOTINGMODE_MIRRORLOCKUP[] =         "Levantar Espejo";
-const prog_char PROGMEM MSG_SENSOR_TUNNING[] =                    "Ajuste Sensores";
-const prog_char PROGMEM MSG_SENSOR_TUNNING_VISUAL[] =             "Visual";
-const prog_char PROGMEM MSG_SENSOR_TUNNING_NUMERIC[] =            "Numerico";
+const prog_char PROGMEM MSG_SENSOR_TUNING[] =                     "Ajuste Sensores";
+const prog_char PROGMEM MSG_SENSOR_TUNING_VISUAL[] =              "Visual";
+const prog_char PROGMEM MSG_SENSOR_TUNING_NUMERIC[] =             "Numerico";
 const prog_char PROGMEM MSG_SENSOR_TYPE[] =                       "Tipo de Sensor";
 const prog_char PROGMEM MSG_SENSOR_TYPE_AUDIO[] =                 "Audio";
 const prog_char PROGMEM MSG_SENSOR_TYPE_BARRIER[] =               "Barrera";

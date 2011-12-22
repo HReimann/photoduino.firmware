@@ -1,8 +1,4 @@
-/**
- *
- * - Photoduino
- * - http://www.photoduino.com/
- *
+/*
  * This file is part of Photoduino.
  *
  * Photoduino is free software: you can redistribute it and/or modify
@@ -18,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+ 
 void config_init(){
   
   // Check if the firmware version is the same of eeprom config
@@ -82,7 +78,7 @@ void config_loadBackup_system(){
   
   system_useBacklight = EEPROM.read(EE_ADDR_system_useBacklight);
   system_useSpeaker = EEPROM.read(EE_ADDR_system_useSpeaker);
-  system_sensorTunningMode = EEPROM.read(EE_ADDR_system_sensorTunningMode);
+  system_sensorTuningMode = EEPROM.read(EE_ADDR_system_sensorTuningMode);
   system_cameraShutterLag = eeprom_readInt(EE_ADDR_system_cameraShutterLag);
   system_cameraMirrorLockUpTimeout = eeprom_readInt(EE_ADDR_system_cameraMirrorLockUpTimeout);
   system_useFlash1 = EEPROM.read(EE_ADDR_system_useFlash1);
@@ -95,7 +91,7 @@ void config_loadDefaults_system() {
   
   system_useBacklight = DEFAULT_system_useBacklight;
   system_useSpeaker = DEFAULT_system_useSpeaker;
-  system_sensorTunningMode = DEFAULT_system_sensorTunningMode;
+  system_sensorTuningMode = DEFAULT_system_sensorTuningMode;
   system_cameraShutterLag = DEFAULT_system_cameraShutterLag;
   system_cameraMirrorLockUpTimeout = DEFAULT_system_cameraMirrorLockUpTimeout;
   system_useFlash1 = DEFAULT_system_useFlash1;
@@ -108,7 +104,7 @@ void config_saveBackup_system(){
   
   EEPROM.write(EE_ADDR_system_useBacklight, system_useBacklight);
   EEPROM.write(EE_ADDR_system_useSpeaker, system_useSpeaker);
-  EEPROM.write(EE_ADDR_system_sensorTunningMode, system_sensorTunningMode);
+  EEPROM.write(EE_ADDR_system_sensorTuningMode, system_sensorTuningMode);
   eeprom_writeInt(EE_ADDR_system_cameraShutterLag, system_cameraShutterLag);
   eeprom_writeInt(EE_ADDR_system_cameraMirrorLockUpTimeout, system_cameraMirrorLockUpTimeout);
   EEPROM.write(EE_ADDR_system_useFlash1, system_useFlash1);

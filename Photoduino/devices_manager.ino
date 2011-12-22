@@ -1,8 +1,4 @@
-/**
- *
- * - Photoduino
- * - http://www.photoduino.com/
- *
+/*
  * This file is part of Photoduino.
  *
  * Photoduino is free software: you can redistribute it and/or modify
@@ -186,7 +182,7 @@ void display_printMessage(const prog_char* str) {
   char c;
   if (!str) return;
   while ((c = pgm_read_byte(str))) {
-    lcd.print(c, BYTE);
+    lcd.print(c);
     str++;
   }
 }
@@ -270,8 +266,8 @@ void display_printShootingMode(byte mode){
 // Print sensor tunning modes
 void display_printInterfaceSensorMode(byte mode){
   lcd.print("(");
-  if(mode==SENSOR_TUNNING_VISUAL) display_printMessage(MSG_SENSOR_TUNNING_VISUAL);
-  if(mode==SENSOR_TUNNING_NUMERIC) display_printMessage(MSG_SENSOR_TUNNING_NUMERIC);     
+  if(mode==SENSOR_TUNING_VISUAL) display_printMessage(MSG_SENSOR_TUNING_VISUAL);
+  if(mode==SENSOR_TUNING_NUMERIC) display_printMessage(MSG_SENSOR_TUNING_NUMERIC);     
   lcd.print(")");
 }
 
@@ -308,17 +304,6 @@ void display_leadingZeroNumber(unsigned int number, byte positions){
      lcd.print((number%10), 10);
   
 }
-
-// Print on lcd a progmem string
-void serial_printMessage(const prog_char* str) {
-  char c;
-  if (!str) return;
-  while ((c = pgm_read_byte(str))) {
-    Serial.print(c, BYTE);
-    str++;
-  }
-}
-
 
 void device_init(){
   

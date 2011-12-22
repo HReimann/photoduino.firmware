@@ -1,8 +1,4 @@
-/**
- *
- * - Photoduino
- * - http://www.photoduino.com/
- *
+/*
  * This file is part of Photoduino.
  *
  * Photoduino is free software: you can redistribute it and/or modify
@@ -139,7 +135,7 @@ void controller_showSystemConfig(){
 
     // Show menu option
     if(currentOption==0) { display_printMessage(MSG_DEVICE_PORT_TYPE); }
-    if(currentOption==1) { display_printMessage(MSG_SENSOR_TUNNING); }
+    if(currentOption==1) { display_printMessage(MSG_SENSOR_TUNING); }
     if(currentOption==2) { display_printMessage(MSG_SHUTTERLAG_TIME); }
     if(currentOption==3) { display_printMessage(MSG_MIRROR_LOCKUP_TIMEOUT); }
     if(currentOption==4) { display_printMessage(MSG_USE_FLASH1); display_printBoolean(system_useFlash1); }
@@ -156,7 +152,7 @@ void controller_showSystemConfig(){
     if(lastKey==KEY_BH) {
           
           if(currentOption==0) controller_setDevicePortType(&system_devicePortType);
-          if(currentOption==1) controller_setSensorTunningMode(&system_sensorTunningMode);
+          if(currentOption==1) controller_setSensorTuningMode(&system_sensorTuningMode);
           if(currentOption==2) controller_setNumericParameterValue(&system_cameraShutterLag, MSG_SHUTTERLAG_TIME, UNITS_MS);
           if(currentOption==3) controller_setNumericParameterValue(&system_cameraMirrorLockUpTimeout, MSG_MIRROR_LOCKUP_TIMEOUT,UNITS_MS);
           if(currentOption==4) system_useFlash1 = !system_useFlash1;
@@ -289,8 +285,8 @@ void controller_setSensorLimit(byte sensorType){
   
   laser_turnOn();
   
-  if(system_sensorTunningMode==SENSOR_TUNNING_VISUAL) controller_setSensorLimitVisual(sensorType);
-  if(system_sensorTunningMode==SENSOR_TUNNING_NUMERIC) controller_setSensorLimitNumeric(sensorType);
+  if(system_sensorTuningMode==SENSOR_TUNING_VISUAL) controller_setSensorLimitVisual(sensorType);
+  if(system_sensorTuningMode==SENSOR_TUNING_NUMERIC) controller_setSensorLimitNumeric(sensorType);
   
   laser_turnOff();
 }
@@ -321,15 +317,15 @@ void controller_setSensorLimitVisual(byte sensorType){
               if(i==sensorLimitEquivalent){
                  if (sensorMode==SENSOR_MODE_HIGHER){
                      if (sensorValueEquivalent >= sensorLimitEquivalent) buzzer_beep(100); 
-                     lcd.write(SYMBOL_UP);
+                     lcd.write((uint8_t)SYMBOL_UP);
                  } 
                  else                  
                  if (sensorMode==SENSOR_MODE_LOWER){
                      if (sensorValueEquivalent <= sensorLimitEquivalent) buzzer_beep(100); 
-                     lcd.write(SYMBOL_DOWN);
+                     lcd.write((uint8_t)SYMBOL_DOWN);
                  }
               }
-              if(i < sensorValueEquivalent) lcd.write(SYMBOL_BOX); else lcd.print(" ");
+              if(i < sensorValueEquivalent) lcd.write((uint8_t)SYMBOL_BOX); else lcd.print(" ");
           }
           
           keyboard_scan();
@@ -368,11 +364,11 @@ void controller_setSensorLimitNumeric(byte sensorType){
      
      if (sensorMode==SENSOR_MODE_HIGHER) {
              lcd.setCursor(15,1);
-             lcd.write(SYMBOL_UP);
+             lcd.write((uint8_t)SYMBOL_UP);
      }
      if (sensorMode==SENSOR_MODE_LOWER) {
              lcd.setCursor(15,1);
-             lcd.write(SYMBOL_DOWN);
+             lcd.write((uint8_t)SYMBOL_DOWN);
      }       
                     
      lcd.setCursor(9,0);
@@ -450,11 +446,11 @@ void controller_setShootingMode(byte *variable){
 }
 
 // set of sensor tunning mode
-void controller_setSensorTunningMode(byte *value){
+void controller_setSensorTuningMode(byte *value){
   
      do { 
        
-      display_printTitle(MSG_SENSOR_TUNNING);
+      display_printTitle(MSG_SENSOR_TUNING);
       display_printInterfaceSensorMode(*value);
       
       keyboard_waitForAnyKey();

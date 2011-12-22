@@ -1,8 +1,4 @@
-/**
- *
- * - Photoduino
- * - http://www.photoduino.com/
- *
+/*
  * This file is part of Photoduino.
  *
  * Photoduino is free software: you can redistribute it and/or modify
@@ -17,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
- */ 
+ */
  
  // Run sensor trigger mode
 void runAs_sensorTriggerMode() { 
