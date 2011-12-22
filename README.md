@@ -16,7 +16,7 @@ Visit the project site: <http://www.photoduino.com>
 
 * * *
 
-## How to upload firmware to the board
+## How to upload firmware to the arduino board
 
 ### DOWNLOADS
 
@@ -64,7 +64,7 @@ Visit the project site: <http://www.photoduino.com>
 
 ##Firmware changelog:
  
-##release 0.10 (current development)
+##release 0.10 (currently in development)
 
  - All files use ".ino" file extension for the 1.0 Arduino environment
  - Fix compile errors on Arduino 1.0 environment
@@ -82,6 +82,7 @@ Visit the project site: <http://www.photoduino.com>
   
  
 ##release 0.9 
+[Download release 0.9](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.9.zip)
 
  - Added new "Mirror lockup" functionality in all sensor modes
  - Added new "Numeric mode" for tuning sensor limit with more precision. 
@@ -92,14 +93,17 @@ Visit the project site: <http://www.photoduino.com>
  - Some other minor fixes and code reviews.  
  
 ##release 0.8
+[Download release 0.8](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.8.zip)
 
  - Bug fixed on some cameras like canon 50d with prebulb yes. 
  
 ##release 0.7 
+[Download release 0.7](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.7.zip)
 
  - Bug fixed on shutterEnd with prebulb yes. 
   
 ##release 0.6 
+[Download release 0.6](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.6.zip)
 
  - New mode "Flash slave" uses the LDR sensor to shoot the flashes like a 
    slave flash.
@@ -108,6 +112,7 @@ Visit the project site: <http://www.photoduino.com>
  - Fixed a bug with cycles on intervalmode
  
 ##release 0.5 
+[Download release 0.5](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.5.zip)
 
  - Now each sensor have a run mode and custom config
  - New parameter "cycles" also on sensor trigger modes
@@ -122,6 +127,7 @@ Visit the project site: <http://www.photoduino.com>
  - Many code improvements to reduce code size and enhace the organization
  
 ##release 0.4
+[Download release 0.4](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.4.zip)
 
  - Keyboard reading is completly re-writed code to enhance control and use 
    debounce and hold time
@@ -130,6 +136,7 @@ Visit the project site: <http://www.photoduino.com>
  - (function setSensorLimit) now uses two buttons for up and down the value
   
 ##release 0.3
+[Download release 0.3](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.3.zip)
 
  - (function setIntValue) Bug fixed when sets numeric values higher than 59999 
  - (function setIntValue) Numeric values now uses two buttons for up and down 
@@ -138,6 +145,7 @@ Visit the project site: <http://www.photoduino.com>
  - (function keyScan) Bug fixed
  
 ##release 0.2
+[Download release 0.2](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.2.zip)
 
  - New file organization
  - Various improvements
