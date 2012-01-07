@@ -16,52 +16,6 @@ Visit the project site: <http://www.photoduino.com>
 
 * * *
 
-## How to upload firmware to the arduino board
-
-### DOWNLOADS
-
-  1. Download the zip with the Arduino sketch of latest Photoduino firmware: http://www.photoduino.com/downloads
-  2. Download the latest version of the Arduino development environment: http://arduino.cc/en/Main/
-
-### PREPARE
-
-  1. **Unzip the downloaded Arduino environment.**
-     You will find two things. The installer of the environment and the drivers for the FTDI chip that 
-     carries Arduino to connect to USB. You should install both.
-
-  2. **Unzip the downloaded firmware.**
-     Is very important that all files are together in a folder called "Photoduino", if not, rename it.
-
-  3. You must **connect the Arduino board** to your computer via USB.
-
-  4. **Open the Arduino environment** you have installed.
-
-  5. In the Arduino environment, **go to menu "Tools->Board" and select your arduino model**.
-
-  6. In the Arduino environment, **go to menu "Tools->Serial Port" and select the port of arduino**.
-
-
-### COMPILING AND UPLOADING THE FIRMWARE
-
-  1. In the Arduino environment **go to menu "File-> Open ..." and select the file "Photoduino.pde"** in 
-     the unzipped firmware folder. This will open as tabs each of the firmware files in the folder.
-
-  2. Click the "Verify" or **go to the "Sketches"> Verify / Compile ... "**
-
-  3. In the black area at the bottom **should not appear any error**. Only white text. 
-     **If the text is red are errors** and you should check the name of the folder as explained above.
-
-  4. If all goes fine, you can **press the button "Upload" or go to the menu "File-> Upload to IO board"** and wait to finish. 
-
-  5. The environment **will tell you about everything on the console** (bottom box with black background)
-
-### FINISHED
-
-  * If all goes well, you have the firmware loaded on your plate and you should hear one beep.
-  * If not text appears on the LCD screen, adjust the contrast potentiometer.
-
-* * *
-
 ##Firmware changelog:
  
 ##release 0.10 (currently in development)
