@@ -11,8 +11,6 @@
  * @name        Photoduino Firmware
  * @version     0.10
  * @web         http://www.photoduino.com
- * @repository  https://github.com/Photoduino/photoduino-firmware
- * @license     https://github.com/Photoduino/photoduino-firmware/blob/master/Photoduino/LICENSE.txt
  * @author      http://www.kalanda.com
  *
  * This file is part of Photoduino.
@@ -45,7 +43,7 @@
 // - "language_EN.h" for (English)
 // - "language_ES.h" for (Spanish) 
 //
-#define LANGUAGE_FILE "language_EN.h"
+#define LANGUAGE_FILE "language_ES.h"
 
 //
 // Default Camera Shutterlag:
@@ -54,7 +52,7 @@
 // 
 // Valid values:
 // - Number between 0 and 59999 in miliseconds
-// - Check your camera model at: http://code.google.com/p/photoduino/wiki/CameraReference
+// - Check your camera model at: http://www.photoduino.com/documentation/reference/cameras-shutterlag/
 //
 #define DEFAULT_SHUTTERLAG               100 // ms
 
@@ -85,18 +83,22 @@
 // - You can set the default device connected to DEVICE port.  Also configurable throught menus.
 // 
 // Valid values:
-// - Number between 0 and 59999 in miliseconds
+// - DEVICE_PORT_TYPE_NONE
+// - DEVICE_PORT_TYPE_LASER 
 //
-#define DEFAULT_DEVICE_PORT_TYPE    DEVICE_PORT_TYPE_LASER    
+#define DEFAULT_DEVICE_PORT_TYPE                DEVICE_PORT_TYPE_LASER    
 
 // 
 // Default sensor type:
 // - You can set the default sensor type.  Also configurable throught menus.
 // 
 // Valid values:
-// - Number between 0 and 59999 in miliseconds
+// - SENSOR_TYPE_BARRIER
+// - SENSOR_TYPE_AUDIO
+// - SENSOR_TYPE_LIGHT
+// - SENSOR_TYPE_SHOCK
 //
-#define DEFAULT_SENSOR_TYPE         SENSOR_TYPE_BARRIER
+#define DEFAULT_SENSOR_TYPE                     SENSOR_TYPE_BARRIER
 
 // 
 // Default sensor tunning mode:
@@ -111,12 +113,12 @@
 // 
 // Pulse width for shooting flashes:
 // - Time in microseconds of the pulse to shoot the flashes.
-// - Increase this value if you have problems with your flash model (very rare).
+// - Increase this value if you have problems with your flash model.
 // 
 // Valid values:
 // - Number between 0 and 59999 in microseconds
 // 
-#define DEVICES_FLASHES_SHOOTING_PULSE     1 // us
+#define DEVICES_FLASHES_SHOOTING_PULSE     40 // us
 
 
 //
@@ -135,10 +137,10 @@
  * ------------------------------------------------------------------------------------------- */
 
 // Signature and version codes 
-#define SIGNATURE_CODE1             0x22 // day 
-#define SIGNATURE_CODE2             0x12 // month
+#define SIGNATURE_CODE1             0x31 // day 
+#define SIGNATURE_CODE2             0x01 // month
 #define SIGNATURE_CODE3             0x20 // century
-#define SIGNATURE_CODE4             0x11 // year of century
+#define SIGNATURE_CODE4             0x12 // year of century
 #define CODE_MAJOR_VERSION          0x00 // major version
 #define CODE_MINOR_VERSION          0x0A // minor version
 
@@ -315,9 +317,9 @@
 
 // Import libraries 
 #include <avr/pgmspace.h>
-#include LANGUAGE_FILE
 #include <LiquidCrystal.h>  
 #include <EEPROM.h>
+#include LANGUAGE_FILE
 
 // LiquidCrystal LCD control object instance
 LiquidCrystal lcd(PINS_LCD_RS, PINS_LCD_ENABLE, PINS_LCD_DB4, PINS_LCD_DB5, PINS_LCD_DB6, PINS_LCD_DB7);
