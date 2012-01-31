@@ -19,6 +19,7 @@ Visit the project site: <http://www.photoduino.com>
 ##Firmware changelog:
  
 ##release 0.10
+[Download release 0.10](https://github.com/downloads/Photoduino/photoduino-firmware/photoduino.shield.firmware.v.0.10.zip)
 
  - All files use ".ino" file extension for the 1.0 Arduino environment
  - Fixed some compile errors on Arduino 1.0 environment
