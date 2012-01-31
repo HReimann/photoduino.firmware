@@ -18,10 +18,10 @@ Visit the project site: <http://www.photoduino.com>
 
 ##Firmware changelog:
  
-##release 0.10 (currently in development)
+##release 0.10
 
  - All files use ".ino" file extension for the 1.0 Arduino environment
- - Fix compile errors on Arduino 1.0 environment
+ - Fixed some compile errors on Arduino 1.0 environment
  - No use progmem for allocate strings in program memory and reduce compiled code size
  - New progress bar interface element
  - Added confirmation message when you reset config in any execution mode to avoid accidental losses
