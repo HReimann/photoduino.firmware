@@ -22,17 +22,18 @@ Visit the project site: <http://www.photoduino.com>
 
  - All files use ".ino" file extension for the 1.0 Arduino environment
  - Fixed some compile errors on Arduino 1.0 environment
- - No use progmem for allocate strings in program memory and reduce compiled code size
+ - Now uses progmem for allocating strings in program memory
+ - Reduced compiled code size
  - New progress bar interface element
  - Added confirmation message when you reset config in any execution mode to avoid accidental losses
- - Fixed some messages spelling errors
- - Now the shutterlag is a system parameter because it depends of the camera model and is the same in all the run modes. 
- - Now Useflash1 and Useflash2 are system parameters. If p.e. UseFlash2 is "NO", then in the config menus of all run modes you will don't see the "flash2 pretime".
+ - Fixed some spelling errors
+ - Now the shutterlag is a common system parameter because it depends of the camera model and is the same in all the run modes. 
+ - Now "Use flash1" and "Use flash2" are system parameters. If p.e. UseFlash2 is "NO", then in the config menus of all run modes you will don't see the "flash2 pretime".
  - Now, the language messages are in separated files for each language to improve future translations.
- - Mirror lockup timeout is now configurable throught the system menu.
- - New system parameter "DEVICE PORT TYPE" determines the use of the Device port like laser, electrovalve, ...
- - A big new functionality of control electrovalve. Docs soon.
- - New key input holding A+B buttons to use it in numeric sensor tunning to match sensor and limit values to equal.
+ - Mirror lockup timeout is now configurable through the system menu.
+ - New system parameter "DEVICE TYPE" determines the use of the Device port like laser, electrovalve, ...
+ - A big new functionality of control electro-valve or solenoid valve. Docs soon.
+ - New key input holding A+B buttons to use it in numeric sensor tuning to match sensor and limit values to equal.
   
  
 ##release 0.9 
