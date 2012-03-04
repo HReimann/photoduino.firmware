@@ -9,7 +9,7 @@
  *       
  *
  * @name        Photoduino Firmware
- * @version     0.10
+ * @version     0.11
  * @web         http://www.photoduino.com
  * @author      http://www.kalanda.com
  *
@@ -42,8 +42,9 @@
 // Valid values: 
 // - "language_EN.h" for (English)
 // - "language_ES.h" for (Spanish) 
+// - "language_IT.h" for (Italian) 
 //
-#define LANGUAGE_FILE "language_ES.h"
+#define LANGUAGE_FILE "language_EN.h"
 
 //
 // Default Camera Shutterlag:
@@ -137,12 +138,12 @@
  * ------------------------------------------------------------------------------------------- */
 
 // Signature and version codes 
-#define SIGNATURE_CODE1             0x31 // day 
-#define SIGNATURE_CODE2             0x01 // month
+#define SIGNATURE_CODE1             0x04 // day 
+#define SIGNATURE_CODE2             0x03 // month
 #define SIGNATURE_CODE3             0x20 // century
 #define SIGNATURE_CODE4             0x12 // year of century
 #define CODE_MAJOR_VERSION          0x00 // major version
-#define CODE_MINOR_VERSION          0x0A // minor version
+#define CODE_MINOR_VERSION          0x0B // minor version
 
 // Default system config
 #define DEFAULT_system_useBacklight                   true
