@@ -138,8 +138,8 @@
  * ------------------------------------------------------------------------------------------- */
 
 // Signature and version codes 
-#define SIGNATURE_CODE1             0x04 // day 
-#define SIGNATURE_CODE2             0x03 // month
+#define SIGNATURE_CODE1             0x08 // day 
+#define SIGNATURE_CODE2             0x04 // month
 #define SIGNATURE_CODE3             0x20 // century
 #define SIGNATURE_CODE4             0x12 // year of century
 #define CODE_MAJOR_VERSION          0x00 // major version
@@ -320,10 +320,15 @@
 #include <avr/pgmspace.h>
 #include <LiquidCrystal.h>  
 #include <EEPROM.h>
+#include <Firmata.h>
 #include LANGUAGE_FILE
 
 // LiquidCrystal LCD control object instance
 LiquidCrystal lcd(PINS_LCD_RS, PINS_LCD_ENABLE, PINS_LCD_DB4, PINS_LCD_DB5, PINS_LCD_DB6, PINS_LCD_DB7);
+
+// Remote mode flag
+boolean remoteMode = false;
+boolean remoteSensorBroadcasting = false;
 
 // Variables used on interrupt mode
 volatile boolean cancelFlag = false;    // Flag used to abort interrupt mode
@@ -403,7 +408,14 @@ void setup()
   pinMode(PINS_BUZZER,         OUTPUT);
   pinMode(PINS_DEVICE,         OUTPUT);
   
- 
+  // Init Firmata 
+  Firmata.attach(START_SYSEX, sysexCallback);
+  Firmata.begin(57600);
+}
+
+// Run controller
+void loop(){ 
+  
   // Initialize config
   config_init(); 
 
@@ -412,14 +424,11 @@ void setup()
 
   // Init device connected to device port
   device_init();
-
-}
-
-// Run controller
-void loop(){ 
+  
+  // Run main controller
   controller_run();
+ 
 }
-
 
 
 

@@ -84,6 +84,8 @@ void runAs_sensorTriggerMode() {
      camera_shutterEnd(sensorTriggerMode_preCloseTime); 
      camera_autofocusEnd();
      if(!cancelFlag) delay(sensorTriggerMode_interCycleTime);
+     
+     if(remoteMode && Firmata.available()) Firmata.processInput();
   
    }
    

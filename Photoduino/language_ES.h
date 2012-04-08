@@ -77,4 +77,5 @@ const prog_char PROGMEM MSG_DEVICE_PORT_TYPE_ELECTROVALVE[] =     "Electrovalvul
 const prog_char PROGMEM MSG_DROPS_COUNT[] =                       "Numero de Gotas";
 const prog_char PROGMEM MSG_DROPS_DURATION[] =                    "Duracion Gota";
 const prog_char PROGMEM MSG_DROPS_INTERVAL[] =                    "Intervalo Gotas";
+const prog_char PROGMEM MSG_REMOTE_MODE[] =                       "Modo remoto";
 

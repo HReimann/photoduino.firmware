@@ -17,10 +17,36 @@
 
 // Runs the controller
 void controller_run(){
+  
+   controller_showWelcome();
    
-  controller_showWelcome();
-  keyboard_waitForAnyKey();
-  controller_showMainMenu();
+   while(true) {
+     
+     keyboard_scan();
+     
+     if(lastKey != KEY_NONE) {
+        controller_showMainMenu();
+        controller_showWelcome();
+     }
+     
+     if(Firmata.available()) Firmata.processInput();
+     
+     if(remoteMode){
+       controller_showRemoteMode();
+       while(remoteMode){
+          if(Firmata.available()) Firmata.processInput();
+          if(remoteSensorBroadcasting) remote_sensor_broadcast();
+       }
+       controller_showWelcome();
+     }
+   }
+}
+
+// Show remote mode
+void controller_showRemoteMode(){
+   lcd.clear();
+   display_printMessage(MSG_REMOTE_MODE);
+   buzzer_beep(200);
 }
 
 // Show welcome

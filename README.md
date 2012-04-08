@@ -20,7 +20,8 @@ Visit the project site: <http://www.photoduino.com>
 
 ## release 0.11 (development version)
 
-- New language file with Italian translation of menus (Thanks to David Guerrini)
+ - Compatible with the new software for desktop control [Photoduino Remote 0.1](https://github.com/Photoduino/photoduino.remote)
+ - New language file with Italian translation of menus (Thanks to Andrea Candolini)
  
 ##release 0.10 (stable version)
 [Download release 0.10](https://github.com/downloads/Photoduino/photoduino.firmware/photoduino.shield.firmware.v.0.10.zip)
