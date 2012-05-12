@@ -18,12 +18,14 @@ Visit the project site: <http://www.photoduino.com>
 
 ##Firmware changelog:
 
-## release 0.11 (development version)
+## release 1.0 (stable version)
+[Download release 1.0](https://github.com/downloads/Photoduino/photoduino.firmware/photoduino.shield.firmware.v.1.0.zip)
 
- - Compatible with the new software for desktop control [Photoduino Remote 0.1](https://github.com/Photoduino/photoduino.remote)
+ - Compatible with the new desktop software for remote control of Photoduino using USB port [Photoduino Remote 1.0](https://github.com/Photoduino/photoduino.remote)
  - New language file with Italian translation of menus (Thanks to Andrea Candolini)
  
-##release 0.10 (stable version)
+ 
+##release 0.10 
 [Download release 0.10](https://github.com/downloads/Photoduino/photoduino.firmware/photoduino.shield.firmware.v.0.10.zip)
 
  - All files use ".ino" file extension for the 1.0 Arduino environment

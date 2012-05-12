@@ -40,8 +40,8 @@ void runAs_intervalometer() {
      
      waitInterval();
      
-     if(remoteMode && Firmata.available()) Firmata.processInput();
-     
+     if(remoteMode && FirmataLite.available()) FirmataLite.processInput();
+    
    }
    
    display_printAborting();

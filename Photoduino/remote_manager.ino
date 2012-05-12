@@ -1,6 +1,7 @@
 // Command codes
 #define REMOTE_CMD_REMOTE_MODE_START                    0x01
 #define REMOTE_CMD_REMOTE_MODE_STOP                     0x02
+#define REMOTE_CMD_ALL_PARAM_REQUEST                    0x03
 #define REMOTE_CMD_PARAM_REQUEST                        0x04
 #define REMOTE_CMD_PARAM_UPDATE                         0x05  
 #define REMOTE_CMD_SENSOR_BROADCASTING_START            0x06
@@ -19,9 +20,10 @@
 #define REMOTE_CMD_CANCEL_RUNMODE                       0x15
     
 // Response codes
-#define REMOTE_RSP_REPORT_REMOTE_MODE                   0x01
-#define REMOTE_RSP_REPORT_PARAM                         0x02
-#define REMOTE_RSP_REPORT_SENSOR_READ                   0x03
+#define REMOTE_RSP_REPORT_READY                         0x01
+#define REMOTE_RSP_REPORT_REMOTE_MODE                   0x02
+#define REMOTE_RSP_REPORT_PARAM                         0x03
+#define REMOTE_RSP_REPORT_SENSOR_READ                   0x04
 #define REMOTE_RSP_REPORT_SYSTEM_BUSY                   0x05
 #define REMOTE_RSP_REPORT_SYSTEM_IDLE                   0x06
 
@@ -31,10 +33,11 @@ void sysexCallback(byte command, byte argc, byte*argv)
 {
     
     switch(command){
-      
+        
        case REMOTE_CMD_REMOTE_MODE_START            : remote_mode_start(); break;   
        case REMOTE_CMD_REMOTE_MODE_STOP             : remote_mode_stop(); break;               
        
+       case REMOTE_CMD_ALL_PARAM_REQUEST            : remote_report_all_params(); break;
        case REMOTE_CMD_PARAM_REQUEST                : remote_report_param(argc, argv); break;   
        case REMOTE_CMD_PARAM_UPDATE                 : remote_set_param(argc, argv); break;       
        
@@ -73,27 +76,39 @@ void sysexCallback(byte command, byte argc, byte*argv)
                                                       break;
        
               
-       default:  Firmata.sendString("Unknown command");
+       default:  FirmataLite.sendString("Unknown command");
                  break;      
     }
 }
 
-// Report version of firmware
+void remote_sendReady(){
+  
+  byte FirmwareVersion[3] = { 1, CODE_MAJOR_VERSION, CODE_MINOR_VERSION };
+  FirmataLite.sendSysex(REMOTE_RSP_REPORT_READY, 3, FirmwareVersion);
+  
+}
+
 void remote_mode_start(){
   
+  remote_report_all_params();
+  remoteSensorBroadcasting = true;
   remoteMode = true; 
   byte FirmwareVersion[3] = { 1, CODE_MAJOR_VERSION, CODE_MINOR_VERSION };
-  Firmata.sendSysex(REMOTE_RSP_REPORT_REMOTE_MODE, 3, FirmwareVersion);
+  FirmataLite.sendSysex(REMOTE_RSP_REPORT_REMOTE_MODE, 3, FirmwareVersion);
              
 }
 
-// Report version of firmware
 void remote_mode_stop(){
   
   remoteMode = false; 
   byte FirmwareVersion[3] = { 0, CODE_MAJOR_VERSION, CODE_MINOR_VERSION };
-  Firmata.sendSysex(REMOTE_RSP_REPORT_REMOTE_MODE, 3, FirmwareVersion);
+  FirmataLite.sendSysex(REMOTE_RSP_REPORT_REMOTE_MODE, 3, FirmwareVersion);
              
+}
+
+void remote_report_param(byte address){
+  byte eepromAddress[1] = { address };
+  remote_report_param(1, eepromAddress);
 }
 
 // Report param value from eeprom
@@ -110,7 +125,44 @@ void remote_report_param(byte argc, byte *argv){
   response[2] = value % 256;
   
   // Send response
-  Firmata.sendSysex(REMOTE_RSP_REPORT_PARAM, 3, response);
+  FirmataLite.sendSysex(REMOTE_RSP_REPORT_PARAM, 3, response);
+  
+}
+
+void remote_report_all_params(){
+   
+  remote_report_param(EE_ADDR_system_useBacklight);
+  remote_report_param(EE_ADDR_system_useSpeaker);
+  remote_report_param(EE_ADDR_system_sensorTuningMode);
+  remote_report_param(EE_ADDR_system_cameraShutterLag);
+  remote_report_param(EE_ADDR_system_cameraMirrorLockUpTimeout);
+  remote_report_param(EE_ADDR_system_useFlash1);
+  remote_report_param(EE_ADDR_system_useFlash2);
+  remote_report_param(EE_ADDR_system_devicePortType);
+  
+  remote_report_param(EE_ADDR_intervalometerMode_autofocusTime);
+  remote_report_param(EE_ADDR_intervalometerMode_preFlash1Time);
+  remote_report_param(EE_ADDR_intervalometerMode_preFlash2Time);
+  remote_report_param(EE_ADDR_intervalometerMode_preCloseTime);
+  remote_report_param(EE_ADDR_intervalometerMode_intervalUnits);
+  remote_report_param(EE_ADDR_intervalometerMode_intervalValue);
+  remote_report_param(EE_ADDR_intervalometerMode_numCycles);
+  
+  remote_report_param(EE_ADDR_sensorTriggerMode_sensorType);
+  remote_report_param(EE_ADDR_sensorTriggerMode_sensorAudioLimit);
+  remote_report_param(EE_ADDR_sensorTriggerMode_sensorBarrierLimit);
+  remote_report_param(EE_ADDR_sensorTriggerMode_sensorLightLimit);
+  remote_report_param(EE_ADDR_sensorTriggerMode_sensorShockLimit);
+  remote_report_param(EE_ADDR_sensorTriggerMode_shootingMode);
+  remote_report_param(EE_ADDR_sensorTriggerMode_autofocusTime);
+  remote_report_param(EE_ADDR_sensorTriggerMode_preFlash1Time);
+  remote_report_param(EE_ADDR_sensorTriggerMode_preFlash2Time);
+  remote_report_param(EE_ADDR_sensorTriggerMode_preCloseTime);
+  remote_report_param(EE_ADDR_sensorTriggerMode_numCycles);
+  remote_report_param(EE_ADDR_sensorTriggerMode_interCycleTime);
+  remote_report_param(EE_ADDR_sensorTriggerMode_dropsCount);
+  remote_report_param(EE_ADDR_sensorTriggerMode_dropsDuration);
+  remote_report_param(EE_ADDR_sensorTriggerMode_dropsInterval);
   
 }
 
@@ -143,28 +195,25 @@ void remote_sensor_broadcast(){
    
    if ( ((sensorMode==SENSOR_MODE_HIGHER && sensorValue >= *sensorLimit) || 
          (sensorMode==SENSOR_MODE_LOWER  && sensorValue <= *sensorLimit)) ) {
-         //buzzer_beep(100); 
          sensorOverflow = true;
    } else {
          sensorOverflow = false;
-         //delay(20);  
    }
    
    byte responseValues[4] = {sensorType, sensorValue/256, sensorValue % 256, sensorOverflow};  
    
-   Firmata.sendSysex(REMOTE_RSP_REPORT_SENSOR_READ, 4, responseValues); 
-   delay(1);
+   FirmataLite.sendSysex(REMOTE_RSP_REPORT_SENSOR_READ, 4, responseValues); 
 }
 
 void remote_report_system_busy(boolean cancelable){
    
   byte response[1] = {cancelable};
-   Firmata.sendSysex(REMOTE_RSP_REPORT_SYSTEM_BUSY, 1, response); 
+   FirmataLite.sendSysex(REMOTE_RSP_REPORT_SYSTEM_BUSY, 1, response); 
 }
 
 void remote_report_system_idle(){
   cancelFlag = false;
-  Firmata.sendSysex(REMOTE_RSP_REPORT_SYSTEM_IDLE, 0, 0); 
+  FirmataLite.sendSysex(REMOTE_RSP_REPORT_SYSTEM_IDLE, 0, 0); 
 }
 
 

@@ -17,8 +17,11 @@
 
 // Runs the controller
 void controller_run(){
-  
+   
+   //unsigned long referenceTime = millis();
+   
    controller_showWelcome();
+   remote_sendReady();
    
    while(true) {
      
@@ -29,13 +32,16 @@ void controller_run(){
         controller_showWelcome();
      }
      
-     if(Firmata.available()) Firmata.processInput();
+     if(FirmataLite.available()) FirmataLite.processInput();
      
      if(remoteMode){
        controller_showRemoteMode();
        while(remoteMode){
-          if(Firmata.available()) Firmata.processInput();
-          if(remoteSensorBroadcasting) remote_sensor_broadcast();
+          if(FirmataLite.available()) FirmataLite.processInput();
+          //if(remoteSensorBroadcasting && millis() > referenceTime+remoteSensorBroadcastingInterval) { 
+            remote_sensor_broadcast();
+          //  referenceTime = millis();
+          //}  
        }
        controller_showWelcome();
      }
@@ -46,7 +52,7 @@ void controller_run(){
 void controller_showRemoteMode(){
    lcd.clear();
    display_printMessage(MSG_REMOTE_MODE);
-   buzzer_beep(200);
+   //buzzer_beep(200);
 }
 
 // Show welcome

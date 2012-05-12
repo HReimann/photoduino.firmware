@@ -9,7 +9,7 @@
  *       
  *
  * @name        Photoduino Firmware
- * @version     0.11
+ * @version     1.0
  * @web         http://www.photoduino.com
  * @author      http://www.kalanda.com
  *
@@ -138,12 +138,12 @@
  * ------------------------------------------------------------------------------------------- */
 
 // Signature and version codes 
-#define SIGNATURE_CODE1             0x08 // day 
-#define SIGNATURE_CODE2             0x04 // month
+#define SIGNATURE_CODE1             0x12 // day 
+#define SIGNATURE_CODE2             0x05 // month
 #define SIGNATURE_CODE3             0x20 // century
 #define SIGNATURE_CODE4             0x12 // year of century
-#define CODE_MAJOR_VERSION          0x00 // major version
-#define CODE_MINOR_VERSION          0x0B // minor version
+#define CODE_MAJOR_VERSION          0x01 // major version
+#define CODE_MINOR_VERSION          0x00 // minor version
 
 // Default system config
 #define DEFAULT_system_useBacklight                   true
@@ -258,7 +258,6 @@
 #define KEY_BH               4 // Button B was pressed and holded (KEY_HOLD_TIME) milisecons
 #define KEY_ABH              5 // Buttons A+B was pressed and holded (KEY_HOLD_TIME) milisecons
 
-
 // Keyboard times
 #define KEY_DEBOUNCE_TIME    30 // debounce time (ms) to prevent flickering when pressing or releasing the button
 #define KEY_HOLD_TIME       400 // holding period (ms) how long to wait for press+hold event
@@ -320,18 +319,18 @@
 #include <avr/pgmspace.h>
 #include <LiquidCrystal.h>  
 #include <EEPROM.h>
-#include <Firmata.h>
+#include "FirmataLite.h"
 #include LANGUAGE_FILE
 
 // LiquidCrystal LCD control object instance
 LiquidCrystal lcd(PINS_LCD_RS, PINS_LCD_ENABLE, PINS_LCD_DB4, PINS_LCD_DB5, PINS_LCD_DB6, PINS_LCD_DB7);
 
-// Remote mode flag
-boolean remoteMode = false;
-boolean remoteSensorBroadcasting = false;
-
 // Variables used on interrupt mode
 volatile boolean cancelFlag = false;    // Flag used to abort interrupt mode
+
+// Remote mode varialbes
+boolean remoteMode = false;
+boolean remoteSensorBroadcasting = false;
 
 // Global variables
 byte         lastKey = KEY_NONE;        // Last key pressed
@@ -409,8 +408,8 @@ void setup()
   pinMode(PINS_DEVICE,         OUTPUT);
   
   // Init Firmata 
-  Firmata.attach(START_SYSEX, sysexCallback);
-  Firmata.begin(57600);
+  FirmataLite.attach(START_SYSEX, sysexCallback);
+  FirmataLite.begin();
 }
 
 // Run controller
