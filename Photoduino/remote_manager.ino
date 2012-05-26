@@ -4,8 +4,8 @@
 #define REMOTE_CMD_ALL_PARAM_REQUEST                    0x03
 #define REMOTE_CMD_PARAM_REQUEST                        0x04
 #define REMOTE_CMD_PARAM_UPDATE                         0x05  
-#define REMOTE_CMD_SENSOR_BROADCASTING_START            0x06
-#define REMOTE_CMD_SENSOR_BROADCASTING_STOP             0x07
+#define REMOTE_CMD_SET_SENSOR_BEEP_ONLIMIT              0x06
+
 #define REMOTE_CMD_MANUAL_CONTROL_AF_START              0x0A
 #define REMOTE_CMD_MANUAL_CONTROL_AF_STOP               0x0B
 #define REMOTE_CMD_MANUAL_CONTROL_SHUTTER_START         0x0C
@@ -34,15 +34,14 @@ void sysexCallback(byte command, byte argc, byte*argv)
     
     switch(command){
         
-       case REMOTE_CMD_REMOTE_MODE_START            : remote_mode_start(); break;   
+       case REMOTE_CMD_REMOTE_MODE_START            : remote_mode_start(argc, argv); break;   
        case REMOTE_CMD_REMOTE_MODE_STOP             : remote_mode_stop(); break;               
        
        case REMOTE_CMD_ALL_PARAM_REQUEST            : remote_report_all_params(); break;
        case REMOTE_CMD_PARAM_REQUEST                : remote_report_param(argc, argv); break;   
        case REMOTE_CMD_PARAM_UPDATE                 : remote_set_param(argc, argv); break;       
        
-       case REMOTE_CMD_SENSOR_BROADCASTING_START    : remoteSensorBroadcasting = true; break;  
-       case REMOTE_CMD_SENSOR_BROADCASTING_STOP     : remoteSensorBroadcasting = false; break;  
+       case REMOTE_CMD_SET_SENSOR_BEEP_ONLIMIT      : remote_set_beep_onlimit(argc, argv); break;  
        
        case REMOTE_CMD_MANUAL_CONTROL_AF_START      : camera_autofocusBegin(0); break;
        case REMOTE_CMD_MANUAL_CONTROL_AF_STOP       : camera_autofocusEnd(); break;   
@@ -56,7 +55,7 @@ void sysexCallback(byte command, byte argc, byte*argv)
        case REMOTE_CMD_MANUAL_CONTROL_DEVICE_OFF    : digitalWrite(PINS_DEVICE,LOW); break;
        
        case REMOTE_CMD_TEST_MAKE_DROPS              : remote_report_system_busy(false); 
-                                                      electrovalve_makeDrops(); 
+                                                      solenoidValve_makeDrops(); 
                                                       remote_report_system_idle(); 
                                                       break;
                                                       
@@ -81,6 +80,7 @@ void sysexCallback(byte command, byte argc, byte*argv)
     }
 }
 
+// Send a ready state to the host
 void remote_sendReady(){
   
   byte FirmwareVersion[3] = { 1, CODE_MAJOR_VERSION, CODE_MINOR_VERSION };
@@ -88,13 +88,20 @@ void remote_sendReady(){
   
 }
 
-void remote_mode_start(){
+// Starts the remote mode
+void remote_mode_start(byte argc, byte *argv){
   
+  // Report to the host all params in the config eeprom  
   remote_report_all_params();
+  
+  // Start the sensor broadcasting mode
+  if (argv[0]==1) remoteSensorBroadcastingBeepOnLimit = true;
+  else remoteSensorBroadcastingBeepOnLimit = false;
   remoteSensorBroadcasting = true;
+  
+  // Start the remote mode and inform to the host
   remoteMode = true; 
-  byte FirmwareVersion[3] = { 1, CODE_MAJOR_VERSION, CODE_MINOR_VERSION };
-  FirmataLite.sendSysex(REMOTE_RSP_REPORT_REMOTE_MODE, 3, FirmwareVersion);
+  FirmataLite.sendSysex(REMOTE_RSP_REPORT_REMOTE_MODE, 0, 0);
              
 }
 
@@ -175,7 +182,7 @@ void remote_set_param(byte argc, byte *argv){
   eeprom_writeInt(address, value); 
   config_loadBackup_all();
   backlight_init();
-  
+  device_init();
 }
 
 // Sensor broadcasting
@@ -196,6 +203,7 @@ void remote_sensor_broadcast(){
    if ( ((sensorMode==SENSOR_MODE_HIGHER && sensorValue >= *sensorLimit) || 
          (sensorMode==SENSOR_MODE_LOWER  && sensorValue <= *sensorLimit)) ) {
          sensorOverflow = true;
+         if (remoteSensorBroadcastingBeepOnLimit) buzzer_beep(50);
    } else {
          sensorOverflow = false;
    }
@@ -216,5 +224,12 @@ void remote_report_system_idle(){
   FirmataLite.sendSysex(REMOTE_RSP_REPORT_SYSTEM_IDLE, 0, 0); 
 }
 
+void remote_set_beep_onlimit(byte argc, byte *argv){
+    
+  if (argv[0]==1) remoteSensorBroadcastingBeepOnLimit = true;
+  else remoteSensorBroadcastingBeepOnLimit = false;
+  
+  
+}
 
 

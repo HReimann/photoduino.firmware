@@ -290,7 +290,7 @@ void display_printDevicePortType(byte type){
   lcd.print("(");
   if(type==DEVICE_PORT_TYPE_NONE) display_printMessage(MSG_DEVICE_PORT_TYPE_NONE);
   if(type==DEVICE_PORT_TYPE_LASER) display_printMessage(MSG_DEVICE_PORT_TYPE_LASER);
-  if(type==DEVICE_PORT_TYPE_ELECTROVALVE) display_printMessage(MSG_DEVICE_PORT_TYPE_ELECTROVALVE);
+  if(type==DEVICE_PORT_TYPE_SOLENOID_VALVE) display_printMessage(MSG_DEVICE_PORT_TYPE_SOLENOID_VALVE);
   lcd.print(")");
 }
 
@@ -307,15 +307,16 @@ void display_leadingZeroNumber(unsigned int number, byte positions){
 
 void device_init(){
   
-   laser_turnOff();
-  
+   if(system_devicePortType == DEVICE_PORT_TYPE_NONE) laser_turnOff();
+   if(system_devicePortType == DEVICE_PORT_TYPE_LASER) laser_turnOn();
+   if(system_devicePortType == DEVICE_PORT_TYPE_SOLENOID_VALVE) digitalWrite(PINS_SOLENOID_VALVE,LOW);
 }
 
 // Turns the laser ON
 void laser_turnOn(){
   
-  // Turn on laser if sensor type barrier and device port is laser
-   if(sensorTriggerMode_sensorType == SENSOR_TYPE_BARRIER && system_devicePortType == DEVICE_PORT_TYPE_LASER) {
+  // Turn on laser if device port is laser
+   if(system_devicePortType == DEVICE_PORT_TYPE_LASER) {
       digitalWrite(PINS_LASER,HIGH);
       delay(1); // waits for laser to anything
    }
@@ -323,18 +324,17 @@ void laser_turnOn(){
 
 // Turns the laser OFF
 void laser_turnOff(){
-  
   if (system_devicePortType == DEVICE_PORT_TYPE_NONE || DEVICE_PORT_TYPE_LASER) digitalWrite(PINS_LASER,LOW); 
 }
 
-void electrovalve_makeDrops(){
+void solenoidValve_makeDrops(){
   
-  if(system_devicePortType == DEVICE_PORT_TYPE_ELECTROVALVE) {
+  if(system_devicePortType == DEVICE_PORT_TYPE_SOLENOID_VALVE) {
      for(unsigned int count = 0; count < sensorTriggerMode_dropsCount && cancelFlag==false; count++){
         if (count>0) delay(sensorTriggerMode_dropsInterval);
-        digitalWrite(PINS_ELECTROVALVE,HIGH);
+        digitalWrite(PINS_SOLENOID_VALVE,HIGH);
         delay(sensorTriggerMode_dropsDuration);
-        digitalWrite(PINS_ELECTROVALVE,LOW);
+        digitalWrite(PINS_SOLENOID_VALVE,LOW);
      } 
   }
 }

@@ -9,7 +9,7 @@
  *       
  *
  * @name        Photoduino Firmware
- * @version     1.0
+ * @version     1.1
  * @web         http://www.photoduino.com
  * @author      http://www.kalanda.com
  *
@@ -87,7 +87,7 @@
 // - DEVICE_PORT_TYPE_NONE
 // - DEVICE_PORT_TYPE_LASER 
 //
-#define DEFAULT_DEVICE_PORT_TYPE                DEVICE_PORT_TYPE_LASER    
+#define DEFAULT_DEVICE_PORT_TYPE                DEVICE_PORT_TYPE_NONE    
 
 // 
 // Default sensor type:
@@ -138,12 +138,12 @@
  * ------------------------------------------------------------------------------------------- */
 
 // Signature and version codes 
-#define SIGNATURE_CODE1             0x12 // day 
+#define SIGNATURE_CODE1             0x26 // day 
 #define SIGNATURE_CODE2             0x05 // month
 #define SIGNATURE_CODE3             0x20 // century
 #define SIGNATURE_CODE4             0x12 // year of century
 #define CODE_MAJOR_VERSION          0x01 // major version
-#define CODE_MINOR_VERSION          0x00 // minor version
+#define CODE_MINOR_VERSION          0x01 // minor version
 
 // Default system config
 #define DEFAULT_system_useBacklight                   true
@@ -214,7 +214,7 @@
 #endif
 
 #define PINS_LASER           PINS_DEVICE  // alias(digital pin)
-#define PINS_ELECTROVALVE    PINS_DEVICE  // alias(digital pin)
+#define PINS_SOLENOID_VALVE  PINS_DEVICE  // alias(digital pin)
 
 // Sensor types
 #define SENSOR_TYPE_BARRIER              0 // Barrier sensor
@@ -223,8 +223,8 @@
 #define SENSOR_TYPE_SHOCK                3 // Shock sensor
 
 // Sensor tunning modes
-#define SENSOR_TUNING_VISUAL            0 // Visual 
-#define SENSOR_TUNING_NUMERIC           1 // Numeric 
+#define SENSOR_TUNING_VISUAL             0 // Visual 
+#define SENSOR_TUNING_NUMERIC            1 // Numeric 
 
 // Sensor limit modes
 #define SENSOR_MODE_LOWER                0 // for triggering by lower values
@@ -238,7 +238,7 @@
 // Device types
 #define DEVICE_PORT_TYPE_NONE            0 // None device connected
 #define DEVICE_PORT_TYPE_LASER           1 // Laser connected for laser barrier
-#define DEVICE_PORT_TYPE_ELECTROVALVE    2 // Electrovalve connected for liquid drops generation
+#define DEVICE_PORT_TYPE_SOLENOID_VALVE    2 // Solenoid valve connected for liquid drops generation
 
 // Measurement units
 #define UNITS_MS             0  // miliseconds
@@ -316,11 +316,11 @@
 #define EE_ADDR_sensorTriggerMode_dropsInterval      0x6C // WORD
 
 // Import libraries 
-#include <avr/pgmspace.h>
-#include <LiquidCrystal.h>  
-#include <EEPROM.h>
-#include "FirmataLite.h"
-#include LANGUAGE_FILE
+#include <avr/pgmspace.h>  // For messages in flash memory
+#include <LiquidCrystal.h> // For LCD Display use 
+#include <EEPROM.h>        // For persistent config 
+#include "FirmataLite.h"   // For remote control throught USB
+#include LANGUAGE_FILE     // Messages
 
 // LiquidCrystal LCD control object instance
 LiquidCrystal lcd(PINS_LCD_RS, PINS_LCD_ENABLE, PINS_LCD_DB4, PINS_LCD_DB5, PINS_LCD_DB6, PINS_LCD_DB7);
@@ -331,6 +331,7 @@ volatile boolean cancelFlag = false;    // Flag used to abort interrupt mode
 // Remote mode varialbes
 boolean remoteMode = false;
 boolean remoteSensorBroadcasting = false;
+boolean remoteSensorBroadcastingBeepOnLimit = false;
 
 // Global variables
 byte         lastKey = KEY_NONE;        // Last key pressed

@@ -20,7 +20,7 @@
  // Run interval mode
 void runAs_intervalometer() { 
    
-   display_printTitle(MSG_RUN);
+   display_printTitle(MSG_RUNNING);
 
    keyboard_waitForNokey();
    

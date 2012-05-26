@@ -17,9 +17,7 @@
 
 // Runs the controller
 void controller_run(){
-   
-   //unsigned long referenceTime = millis();
-   
+
    controller_showWelcome();
    remote_sendReady();
    
@@ -38,10 +36,7 @@ void controller_run(){
        controller_showRemoteMode();
        while(remoteMode){
           if(FirmataLite.available()) FirmataLite.processInput();
-          //if(remoteSensorBroadcasting && millis() > referenceTime+remoteSensorBroadcastingInterval) { 
-            remote_sensor_broadcast();
-          //  referenceTime = millis();
-          //}  
+          remote_sensor_broadcast();
        }
        controller_showWelcome();
      }
@@ -134,7 +129,7 @@ void controller_showSensorTriggerMenu(){
 
     // Show menu option
     if(currentOption==0) display_printMessage(MSG_CONFIG_TRIGGER);
-    if(currentOption==1) { if(system_devicePortType==DEVICE_PORT_TYPE_ELECTROVALVE) display_printMessage(MSG_CONFIG_DROPS); else skipOption = true; }
+    if(currentOption==1) { if(system_devicePortType==DEVICE_PORT_TYPE_SOLENOID_VALVE) display_printMessage(MSG_CONFIG_DROPS); else skipOption = true; }
     if(currentOption==2) display_printMessage(MSG_RUN);
     if(currentOption==3) display_printMessage(MSG_RESET_CONFIG);
     
@@ -315,12 +310,9 @@ void controller_showDropsConfig(){
 // set of sensorlimit
 void controller_setSensorLimit(byte sensorType){
   
-  laser_turnOn();
-  
   if(system_sensorTuningMode==SENSOR_TUNING_VISUAL) controller_setSensorLimitVisual(sensorType);
   if(system_sensorTuningMode==SENSOR_TUNING_NUMERIC) controller_setSensorLimitNumeric(sensorType);
-  
-  laser_turnOff();
+
 }
 
 
@@ -524,7 +516,9 @@ void controller_setDevicePortType(byte *variable){
       if (lastKey==KEY_A) circularList_incrementBy(variable, 0, 2, -1);
       if (lastKey==KEY_B) circularList_incrementBy(variable, 0, 2, 1);
       
-     } while (lastKey!=KEY_AH);     
+     } while (lastKey!=KEY_AH);    
+    
+     device_init(); 
 }
 
 // set of numeric parameter value

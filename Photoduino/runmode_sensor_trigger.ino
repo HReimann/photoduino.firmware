@@ -18,10 +18,9 @@
  // Run sensor trigger mode
 void runAs_sensorTriggerMode() { 
        
-   display_printTitle(MSG_RUN);
+   display_printTitle(MSG_RUNNING);
    
    keyboard_waitForNokey();
-   laser_turnOn();
     
    attachInterrupt(0, keyboard_interrupts, CHANGE);
    attachInterrupt(1, keyboard_interrupts, CHANGE);
@@ -32,7 +31,7 @@ void runAs_sensorTriggerMode() {
      if (sensorTriggerMode_shootingMode == SHOOTINGMODE_NORMAL) {
 
        laser_turnOn();
-       electrovalve_makeDrops();
+       solenoidValve_makeDrops();
        
        sensor_waitFor(sensorTriggerMode_sensorType, 0);
        laser_turnOff();
@@ -53,7 +52,7 @@ void runAs_sensorTriggerMode() {
        camera_autofocusBegin(sensorTriggerMode_autofocusTime);
        camera_shutterBegin(system_cameraShutterLag); 
        laser_turnOn();
-       electrovalve_makeDrops();
+       solenoidValve_makeDrops();
        sensor_waitFor(sensorTriggerMode_sensorType, 0);
        laser_turnOff();
        
@@ -68,8 +67,10 @@ void runAs_sensorTriggerMode() {
               
        for(boolean result = false; result == false;  ){      
          camera_mirrorLockUp(sensorTriggerMode_autofocusTime, system_cameraShutterLag);
-         electrovalve_makeDrops();
+         laser_turnOn();
+         solenoidValve_makeDrops();
          result = sensor_waitFor(sensorTriggerMode_sensorType, system_cameraMirrorLockUpTimeout);
+         laser_turnOff();
        }
        camera_shutterBegin(1); 
       
@@ -95,5 +96,5 @@ void runAs_sensorTriggerMode() {
    detachInterrupt(0);
    detachInterrupt(1);
    
-   laser_turnOff();
+   laser_turnOn();
 }
