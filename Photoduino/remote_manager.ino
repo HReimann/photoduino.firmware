@@ -195,17 +195,23 @@ void remote_sensor_broadcast(){
    unsigned int *sensorLimit;
    byte sensorPin;
    byte sensorMode;
+   
+   if (sensorTriggerMode_sensorType != SENSOR_TYPE_NONE){
+     sensor_getConfiguration(sensorType, &sensorLimit, &sensorPin, &sensorMode);
+     sensorValue = sensor_read(sensorPin);
      
-   sensor_getConfiguration(sensorType, &sensorLimit, &sensorPin, &sensorMode);
-   sensorValue = sensor_read(sensorPin);
+     
+     if ( ((sensorMode==SENSOR_MODE_HIGHER && sensorValue >= *sensorLimit) || 
+           (sensorMode==SENSOR_MODE_LOWER  && sensorValue <= *sensorLimit)) ) {
+           sensorOverflow = true;
+           if (remoteSensorBroadcastingBeepOnLimit) buzzer_beep(50);
+     } else {
+           sensorOverflow = false;
+     }
    
-   
-   if ( ((sensorMode==SENSOR_MODE_HIGHER && sensorValue >= *sensorLimit) || 
-         (sensorMode==SENSOR_MODE_LOWER  && sensorValue <= *sensorLimit)) ) {
-         sensorOverflow = true;
-         if (remoteSensorBroadcastingBeepOnLimit) buzzer_beep(50);
    } else {
-         sensorOverflow = false;
+     sensorOverflow = true;
+     sensorValue = 999;
    }
    
    byte responseValues[4] = {sensorType, sensorValue/256, sensorValue % 256, sensorOverflow};  

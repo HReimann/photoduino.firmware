@@ -47,7 +47,6 @@ void controller_run(){
 void controller_showRemoteMode(){
    lcd.clear();
    display_printMessage(MSG_REMOTE_MODE);
-   //buzzer_beep(200);
 }
 
 // Show welcome
@@ -495,8 +494,8 @@ void controller_setSensorType(byte *value){
       
       keyboard_waitForAnyKey();
       
-      if (lastKey==KEY_A) circularList_incrementBy(value, 0, 3, -1);
-      if (lastKey==KEY_B) circularList_incrementBy(value, 0, 3, 1);
+      if (lastKey==KEY_A) circularList_incrementBy(value, 0, 4, -1);
+      if (lastKey==KEY_B) circularList_incrementBy(value, 0, 4, 1);
    
      } while (lastKey!=KEY_AH); 
  

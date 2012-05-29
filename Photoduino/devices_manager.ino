@@ -75,8 +75,9 @@ unsigned int sensor_read(byte sensorPin) {
 
 // Sets the sensor pin and sensor mode according the sensor type
 void sensor_getConfiguration(byte sensorType, unsigned int **limitValue, byte *sensorPin, byte *sensorMode) {
-
-   if (sensorType == SENSOR_TYPE_AUDIO) { *sensorPin = PINS_SENSOR_MIC; *sensorMode = SENSOR_MODE_HIGHER; *limitValue = &sensorTriggerMode_sensorAudioLimit; }
+   
+   if (sensorType == SENSOR_TYPE_NONE) {  }
+   else if (sensorType == SENSOR_TYPE_AUDIO) { *sensorPin = PINS_SENSOR_MIC; *sensorMode = SENSOR_MODE_HIGHER; *limitValue = &sensorTriggerMode_sensorAudioLimit; }
    else if (sensorType == SENSOR_TYPE_SHOCK) { *sensorPin = PINS_SENSOR_SHOCK; *sensorMode = SENSOR_MODE_HIGHER; *limitValue = &sensorTriggerMode_sensorShockLimit; }
    else if (sensorType == SENSOR_TYPE_LIGHT) { *sensorPin = PINS_SENSOR_BARRIER; *sensorMode = SENSOR_MODE_HIGHER; *limitValue = &sensorTriggerMode_sensorLightLimit;}
    else if (sensorType == SENSOR_TYPE_BARRIER) { *sensorPin = PINS_SENSOR_BARRIER; *sensorMode = SENSOR_MODE_LOWER; *limitValue = &sensorTriggerMode_sensorBarrierLimit;}
@@ -85,20 +86,30 @@ void sensor_getConfiguration(byte sensorType, unsigned int **limitValue, byte *s
 // Waits for sensor cross the limit
 boolean sensor_waitFor(byte sensorType, unsigned int limitTime){
   
-  byte sensorPin;
-  byte sensorMode;
-  unsigned int *limitValue;
-  sensor_getConfiguration(sensorType, &limitValue, &sensorPin, &sensorMode);
-  
-  unsigned long time = millis();
-  unsigned int sensorValue = sensor_read(sensorPin);
   boolean result = false;
-
-  for(; !result && !cancelFlag && (millis()<time+limitTime || limitTime==0); sensorValue = sensor_read(sensorPin)) {
-    if (sensorMode==SENSOR_MODE_HIGHER && sensorValue>=*limitValue) result = true;
-    if (sensorMode==SENSOR_MODE_LOWER && sensorValue<=*limitValue) result = true;
+  
+  if(sensorType != SENSOR_TYPE_NONE){
+    
+    byte sensorPin;
+    byte sensorMode;
+    unsigned int *limitValue;
+    sensor_getConfiguration(sensorType, &limitValue, &sensorPin, &sensorMode);
+    
+    unsigned long time = millis();
+    unsigned int sensorValue = sensor_read(sensorPin);
+  
+    for(; !result && !cancelFlag && (millis()<time+limitTime || limitTime==0); sensorValue = sensor_read(sensorPin)) {
+      if (sensorMode==SENSOR_MODE_HIGHER && sensorValue>=*limitValue) result = true;
+      if (sensorMode==SENSOR_MODE_LOWER && sensorValue<=*limitValue) result = true;
+    }
+    if(cancelFlag) result = true;
+  
+  } else {
+  
+    result = true;
+  
   }
-  if(cancelFlag) result = true;
+  
   return result;
 }
 
@@ -246,10 +257,11 @@ void display_printUnits(byte units){
 // Print sesnor type value
 void display_printSensorType(byte type){
   lcd.print("(");
+  if(type==SENSOR_TYPE_NONE) display_printMessage(MSG_NONE);
   if(type==SENSOR_TYPE_AUDIO) display_printMessage(MSG_SENSOR_TYPE_AUDIO);
   if(type==SENSOR_TYPE_BARRIER) display_printMessage(MSG_SENSOR_TYPE_BARRIER);
-  if(type==SENSOR_TYPE_SHOCK) display_printMessage(MSG_SENSOR_TYPE_SHOCK);
   if(type==SENSOR_TYPE_LIGHT) display_printMessage(MSG_SENSOR_TYPE_LIGHT);
+  if(type==SENSOR_TYPE_SHOCK) display_printMessage(MSG_SENSOR_TYPE_SHOCK);
   lcd.print(")");
 }
 
@@ -288,7 +300,7 @@ void display_printProgressBar(int howMany, int total){
 // Print units value
 void display_printDevicePortType(byte type){
   lcd.print("(");
-  if(type==DEVICE_PORT_TYPE_NONE) display_printMessage(MSG_DEVICE_PORT_TYPE_NONE);
+  if(type==DEVICE_PORT_TYPE_NONE) display_printMessage(MSG_NONE);
   if(type==DEVICE_PORT_TYPE_LASER) display_printMessage(MSG_DEVICE_PORT_TYPE_LASER);
   if(type==DEVICE_PORT_TYPE_SOLENOID_VALVE) display_printMessage(MSG_DEVICE_PORT_TYPE_SOLENOID_VALVE);
   lcd.print(")");

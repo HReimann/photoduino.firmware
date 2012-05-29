@@ -15,7 +15,7 @@
  * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- // Messages list                                                  "123456789012345"
+ // Messages list                                                 "123456789012345"
 const prog_char PROGMEM MSG_LANGUAGE_CODE[] =                     "ES";
 const prog_char PROGMEM MSG_PHOTODUINO_V[] =                      "Photoduino v";
 const prog_char PROGMEM MSG_READY[] =                             "Preparado!";
@@ -51,6 +51,7 @@ const prog_char PROGMEM MSG_RESETTING[] =                         "Reiniciando..
 const prog_char PROGMEM MSG_ABORTING[] =                          "Cancelando...";
 const prog_char PROGMEM MSG_YES[] =                               "SI";
 const prog_char PROGMEM MSG_NO[] =                                "NO";
+const prog_char PROGMEM MSG_NONE[] =                              "Ninguno";
 const prog_char PROGMEM MSG_UNITS_US[] =                          "us";
 const prog_char PROGMEM MSG_UNITS_MS[] =                          "ms";
 const prog_char PROGMEM MSG_UNITS_SECS[] =                        "Segundos";
@@ -72,7 +73,6 @@ const prog_char PROGMEM MSG_SENSOR_TYPE_SHOCK[] =                 "Impacto";
 const prog_char PROGMEM MSG_SENSOR_TYPE_LIGHT[] =                 "Luz";
 const prog_char PROGMEM MSG_MIRROR_LOCKUP_TIMEOUT[] =             "Tiempo Espejo";
 const prog_char PROGMEM MSG_DEVICE_PORT_TYPE[] =                  "Tipo Dispositivo";
-const prog_char PROGMEM MSG_DEVICE_PORT_TYPE_NONE[] =             "Ninguno";
 const prog_char PROGMEM MSG_DEVICE_PORT_TYPE_LASER[] =            "Laser";
 const prog_char PROGMEM MSG_DEVICE_PORT_TYPE_SOLENOID_VALVE[] =   "Electrovalvula";
 const prog_char PROGMEM MSG_DROPS_COUNT[] =                       "Numero de Gotas";

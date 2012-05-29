@@ -138,12 +138,12 @@
  * ------------------------------------------------------------------------------------------- */
 
 // Signature and version codes 
-#define SIGNATURE_CODE1             0x26 // day 
-#define SIGNATURE_CODE2             0x05 // month
-#define SIGNATURE_CODE3             0x20 // century
-#define SIGNATURE_CODE4             0x12 // year of century
-#define CODE_MAJOR_VERSION          0x01 // major version
-#define CODE_MINOR_VERSION          0x01 // minor version
+#define SIGNATURE_CODE1             29 // day 
+#define SIGNATURE_CODE2             5  // month
+#define SIGNATURE_CODE3             20 // century
+#define SIGNATURE_CODE4             12 // year of century
+#define CODE_MAJOR_VERSION          1  // major version
+#define CODE_MINOR_VERSION          1  // minor version
 
 // Default system config
 #define DEFAULT_system_useBacklight                   true
@@ -217,10 +217,11 @@
 #define PINS_SOLENOID_VALVE  PINS_DEVICE  // alias(digital pin)
 
 // Sensor types
-#define SENSOR_TYPE_BARRIER              0 // Barrier sensor
+#define SENSOR_TYPE_NONE                 0 // None sensor
 #define SENSOR_TYPE_AUDIO                1 // Audio sensor
-#define SENSOR_TYPE_LIGHT                2 // Light sensor
-#define SENSOR_TYPE_SHOCK                3 // Shock sensor
+#define SENSOR_TYPE_BARRIER              2 // Barrier sensor
+#define SENSOR_TYPE_LIGHT                3 // Light sensor
+#define SENSOR_TYPE_SHOCK                4 // Shock sensor
 
 // Sensor tunning modes
 #define SENSOR_TUNING_VISUAL             0 // Visual 
@@ -238,7 +239,7 @@
 // Device types
 #define DEVICE_PORT_TYPE_NONE            0 // None device connected
 #define DEVICE_PORT_TYPE_LASER           1 // Laser connected for laser barrier
-#define DEVICE_PORT_TYPE_SOLENOID_VALVE    2 // Solenoid valve connected for liquid drops generation
+#define DEVICE_PORT_TYPE_SOLENOID_VALVE  2 // Solenoid valve connected for liquid drops 
 
 // Measurement units
 #define UNITS_MS             0  // miliseconds
@@ -328,7 +329,7 @@ LiquidCrystal lcd(PINS_LCD_RS, PINS_LCD_ENABLE, PINS_LCD_DB4, PINS_LCD_DB5, PINS
 // Variables used on interrupt mode
 volatile boolean cancelFlag = false;    // Flag used to abort interrupt mode
 
-// Remote mode varialbes
+// Remote mode variables
 boolean remoteMode = false;
 boolean remoteSensorBroadcasting = false;
 boolean remoteSensorBroadcastingBeepOnLimit = false;
