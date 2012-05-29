@@ -18,7 +18,14 @@ Visit the project site: <http://www.photoduino.com>
 
 ##Firmware changelog:
 
-## release 1.0 (stable version)
+## release 1.1
+[Download release 1.1](https://github.com/downloads/Photoduino/photoduino.firmware/photoduino.shield.firmware.v.1.1.zip)
+
+ - New sensor type "None" which is always triggered. This is useful when you want to use solenoid valve control without any barrier sensor.
+ - Now the laser is always on if the "Device Type" is equal to "Laser" (laser will turn off when the photo is taken as usual)
+ - Some changes related to the remote software
+
+## release 1.0
 [Download release 1.0](https://github.com/downloads/Photoduino/photoduino.firmware/photoduino.shield.firmware.v.1.0.zip)
 
  - Compatible with the new desktop software for remote control of Photoduino using USB port [Photoduino Remote 1.0](https://github.com/Photoduino/photoduino.remote)
