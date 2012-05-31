@@ -42,7 +42,8 @@
 // Valid values: 
 // - "language_EN.h" for (English)
 // - "language_ES.h" for (Spanish) 
-// - "language_IT.h" for (Italian) 
+// - "language_IT.h" for (Italian)
+// - "language_FR.h" for (Francais) 
 //
 #define LANGUAGE_FILE "language_EN.h"
 

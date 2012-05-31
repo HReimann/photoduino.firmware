@@ -24,6 +24,7 @@ Visit the project site: <http://www.photoduino.com>
  - New sensor type "None" which is always triggered. This is useful when you want to use solenoid valve control without any barrier sensor.
  - Now the laser is always on if the "Device Type" is equal to "Laser" (laser will turn off when the photo is taken as usual)
  - Some changes related to the remote software
+ - New language file with Francais translation of menus (Thanks to Guy Renou)
 
 ## release 1.0
 [Download release 1.0](https://github.com/downloads/Photoduino/photoduino.firmware/photoduino.shield.firmware.v.1.0.zip)
