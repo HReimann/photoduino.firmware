@@ -44,6 +44,7 @@
 // - "language_ES.h" for (Spanish) 
 // - "language_IT.h" for (Italian)
 // - "language_FR.h" for (Francais) 
+// - "language_DE.h" for (Deutsch) 
 //
 #define LANGUAGE_FILE "language_EN.h"
 
@@ -144,7 +145,7 @@
 #define SIGNATURE_CODE3             20 // century
 #define SIGNATURE_CODE4             12 // year of century
 #define CODE_MAJOR_VERSION          1  // major version
-#define CODE_MINOR_VERSION          1  // minor version
+#define CODE_MINOR_VERSION          2  // minor version
 
 // Default system config
 #define DEFAULT_system_useBacklight                   true
