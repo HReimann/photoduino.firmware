@@ -46,7 +46,7 @@
 // - "language_FR.h" for (Francais) 
 // - "language_DE.h" for (Deutsch) 
 //
-#define LANGUAGE_FILE "language_EN.h"
+#define LANGUAGE_FILE "language_FR.h"
 
 //
 // Default Camera Shutterlag:
@@ -121,7 +121,7 @@
 // Valid values:
 // - Number between 0 and 59999 in microseconds
 // 
-#define DEVICES_FLASHES_SHOOTING_PULSE     40 // us
+#define DEVICES_FLASHES_SHOOTING_PULSE     4000 // us
 
 
 //
@@ -145,7 +145,7 @@
 #define SIGNATURE_CODE3             20 // century
 #define SIGNATURE_CODE4             12 // year of century
 #define CODE_MAJOR_VERSION          1  // major version
-#define CODE_MINOR_VERSION          2  // minor version
+#define CODE_MINOR_VERSION          1  // minor version
 
 // Default system config
 #define DEFAULT_system_useBacklight                   true
@@ -188,31 +188,31 @@
 #define LCD_ROWS             2  // rows
 
 // Pinout settings
-#define PINS_LCD_LED         13 //(digital pin)
-#define PINS_LCD_RS          12 //(digital pin)
-#define PINS_LCD_ENABLE      11 //(digital pin)
-#define PINS_LCD_DB4         10 //(digital pin)
-#define PINS_LCD_DB5         9  //(digital pin)
-#define PINS_LCD_DB6         8  //(digital pin)
+#define PINS_LCD_LED        10  //(digital pin)
+#define PINS_LCD_RS          8  //(digital pin)
+#define PINS_LCD_ENABLE      9  //(digital pin)
+#define PINS_LCD_DB4         4  //(digital pin)
+#define PINS_LCD_DB5         5  //(digital pin)
+#define PINS_LCD_DB6         6  //(digital pin)
 #define PINS_LCD_DB7         7  //(digital pin)
-#define PINS_BUZZER          6  //(digital pin with pwm)
-#define PINS_SHUTTER         5  //(digital pin)
-#define PINS_AUTOFOCUS       4  //(digital pin)
-#define PINS_BTN_A           3  //(digital pin)
-#define PINS_BTN_B           2  //(digital pin)
+#define PINS_BUZZER         11  //(digital pin with pwm)
+#define PINS_SHUTTER        13  //(digital pin)
+#define PINS_AUTOFOCUS      12  //(digital pin)
 
-#define PINS_SENSOR_SHOCK    5  //(analog pin)
-#define PINS_SENSOR_BARRIER  4  //(analog pin)
-#define PINS_SENSOR_MIC      3  //(analog pin)
+#define PINS_BTN            0   //(analog pin)
+
+#define PINS_SENSOR_SHOCK   5   //(analog pin)
+#define PINS_SENSOR_BARRIER 4   //(analog pin)
+#define PINS_SENSOR_MIC     3   //(analog pin)
 
 #ifdef BOARD_ARDUINO_MEGA    // For ArduinoMega compatibility
   #define PINS_FLASH1        56 // Mega pin 56 = Duemilanove 16 (digital pin)
   #define PINS_FLASH2        55 // Mega pin 55 = Duemilanove 15 (digital pin)
   #define PINS_DEVICE        54 // Mega pin 54 = Duemilanove 14 (digital pin)
 #else  
-  #define PINS_FLASH1        16 //(digital pin)
-  #define PINS_FLASH2        15 //(digital pin)
-  #define PINS_DEVICE        14 //(digital pin)
+  #define PINS_FLASH1        3 //(digital pin)
+  #define PINS_FLASH2        2 //(digital pin)
+  #define PINS_DEVICE        15 //(digital pin)
 #endif
 
 #define PINS_LASER           PINS_DEVICE  // alias(digital pin)
@@ -262,7 +262,7 @@
 #define KEY_ABH              5 // Buttons A+B was pressed and holded (KEY_HOLD_TIME) milisecons
 
 // Keyboard times
-#define KEY_DEBOUNCE_TIME    30 // debounce time (ms) to prevent flickering when pressing or releasing the button
+#define KEY_DEBOUNCE_TIME    120 // debounce time (ms) to prevent flickering when pressing or releasing the button
 #define KEY_HOLD_TIME       400 // holding period (ms) how long to wait for press+hold event
 #define KEY_HOLD_TIME_WAIT  100 // Used for double key holding
 
@@ -389,9 +389,7 @@ void setup()
   lcd.createChar(SYMBOL_DOWN, char_arrow_down);
   lcd.createChar(SYMBOL_UP, char_arrow_up);
 
-  // Pinmode inputs
-  pinMode(PINS_BTN_A,          INPUT);     
-  pinMode(PINS_BTN_B,          INPUT);    
+  // Pinmode inputs      
   pinMode(PINS_SENSOR_SHOCK,   INPUT); 
   pinMode(PINS_SENSOR_BARRIER, INPUT);
   pinMode(PINS_SENSOR_MIC,     INPUT);  

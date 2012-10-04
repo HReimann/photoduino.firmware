@@ -14,6 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+int get_key(unsigned int input);
+int adc_key_val[5] ={30, 150, 360, 535, 760 };
+int NUM_KEYS = 5;
 
 // Shoots the flash after wait a delay
 void flash_shoot(unsigned int previousDelay, byte pin) {
@@ -113,12 +117,6 @@ boolean sensor_waitFor(byte sensorType, unsigned int limitTime){
   return result;
 }
 
-// Called in interrupt mode when any button is pressed
-void keyboard_interrupts(){
-  if (!digitalRead(PINS_BTN_A)&&!digitalRead(PINS_BTN_B)) cancelFlag = false; 
-  else cancelFlag = true;
-}
-
 // Scans keyboard in normal mode
 void keyboard_scan() { 
    keyboard_scan(false);
@@ -127,31 +125,87 @@ void keyboard_scan() {
 // Scans keyboard buttons
 void keyboard_scan(boolean quickmode) { 
 
-  unsigned long time = millis();  
-  
-  
-  if (flagHoldKey && !quickmode) { 
-      buzzer_beep(100);
-      while(digitalRead(PINS_BTN_A) || digitalRead(PINS_BTN_B)) {}
-      flagHoldKey = false;
-      lastKey = KEY_NONE; 
-      
-  } else if (digitalRead(PINS_BTN_A)) {
-     while(digitalRead(PINS_BTN_A) && (millis()-time) <= KEY_HOLD_TIME+KEY_HOLD_TIME_WAIT){  
-        if (millis()-time >= KEY_DEBOUNCE_TIME) lastKey = KEY_A;  
-        if (millis()-time >= KEY_HOLD_TIME) { if(digitalRead(PINS_BTN_B)) lastKey = KEY_ABH; else lastKey = KEY_AH; flagHoldKey = true; }
-     }
-     
-  } else if (digitalRead(PINS_BTN_B)) {
-     while(digitalRead(PINS_BTN_B) && (millis()-time) <= KEY_HOLD_TIME+KEY_HOLD_TIME_WAIT){  
-        if (millis()-time >= KEY_DEBOUNCE_TIME)  lastKey = KEY_B;  
-        if (millis()-time >= KEY_HOLD_TIME) { if(digitalRead(PINS_BTN_A)) lastKey = KEY_ABH; else lastKey = KEY_BH; flagHoldKey = true; }
-     }    
-  } else {
-    flagHoldKey = false;
-    lastKey = KEY_NONE;
-  }
-  
+    int adc_key_in = -1;
+    int key = -1;
+    static int oldkey = -1;
+    
+    if (flagHoldKey && !quickmode)
+    { 
+        buzzer_beep(100);
+        while (key == KEY_NONE)
+        {
+            adc_key_in = analogRead(0);
+            key = get_key(adc_key_in);
+            if (key != oldkey)
+            {
+                oldkey = key;
+                delay(KEY_DEBOUNCE_TIME);
+                adc_key_in = analogRead(0);
+                key = get_key(adc_key_in);
+            }
+        }
+        flagHoldKey = false;
+        lastKey = KEY_NONE; 
+    }
+    else
+    {
+        adc_key_in = analogRead(0);
+        key = get_key(adc_key_in);
+        if (key != oldkey)
+        {
+            oldkey = key;
+            delay(KEY_DEBOUNCE_TIME);
+            adc_key_in = analogRead(0);
+            key = get_key(adc_key_in);
+        }
+        switch (key)
+        {           
+            case 1:
+                lastKey = KEY_A;
+                flagHoldKey = true;
+            break;
+            
+            case 2:
+                lastKey = KEY_B;
+                flagHoldKey = true;
+            break;
+            
+            case 3:
+                lastKey = KEY_AH;
+                flagHoldKey = true;
+            break;
+            
+            case 4:
+                lastKey = KEY_BH;
+                flagHoldKey = true;
+            break;
+            
+            case 5:
+                lastKey = KEY_ABH;
+                flagHoldKey = true;
+            break;
+            
+            case -1:
+            case 0:
+            default:
+                flagHoldKey = false;
+                lastKey = KEY_NONE;
+            break;   
+        }
+    }
+}
+
+// Convert ADC value to key number
+int get_key(unsigned int input)
+{   int k;
+    for (k = 0; k < NUM_KEYS; k++)
+    {
+        if (input < adc_key_val[k])
+        {  return k;  }
+    }
+    if (k >= NUM_KEYS)
+        k = -1;     // No valid key pressed
+    return k;
 }
 
 // Waits until any key is pressed

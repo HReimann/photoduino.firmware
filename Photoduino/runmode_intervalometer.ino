@@ -24,9 +24,6 @@ void runAs_intervalometer() {
 
    keyboard_waitForNokey();
    
-   attachInterrupt(0, keyboard_interrupts, CHANGE);
-   attachInterrupt(1, keyboard_interrupts, CHANGE);
-   
    for(unsigned int cyclesCounter = 0; (cancelFlag==false && !(intervalometerMode_numCycles>0 && cyclesCounter >= intervalometerMode_numCycles));cyclesCounter++) { 
      
      camera_autofocusBegin(intervalometerMode_autofocusTime); 
@@ -46,10 +43,6 @@ void runAs_intervalometer() {
    
    display_printAborting();
    keyboard_waitForNokey();
-      
-   detachInterrupt(0);
-   detachInterrupt(1);
-
 }
 
 // Wait interval time
@@ -81,7 +74,4 @@ void delayHours(unsigned int value){
 void delayDays(unsigned int value){
   for (unsigned int i = 0; i<value && !cancelFlag; i++) delayHours(24); 
 }
-
-
-
 
