@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+ #define prog_char char PROGMEM
  // Messages list                                                 "123456789012345"
 const prog_char PROGMEM MSG_LANGUAGE_CODE[] =                     "DE";
 const prog_char PROGMEM MSG_PHOTODUINO_V[] =                      "Photoduino v";
