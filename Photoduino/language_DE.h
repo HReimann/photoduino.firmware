@@ -14,27 +14,27 @@
  * You should have received a copy of the GNU General Public License
  * along with Photoduino.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+ // added mutated vowel, (Umlaute) 
  // Messages list                                                 "123456789012345"
 const prog_char PROGMEM MSG_LANGUAGE_CODE[] =                     "DE";
 const prog_char PROGMEM MSG_PHOTODUINO_V[] =                      "Photoduino v";
 const prog_char PROGMEM MSG_READY[] =                             "Bereit!";
-const prog_char PROGMEM MSG_MAIN_MENU[] =                         "Hauptmenue";
+const prog_char PROGMEM MSG_MAIN_MENU[] =                         "Hauptmenu\xF5";
 const prog_char PROGMEM MSG_SYSTEM_CONFIG[] =                     "System Konfig.";
 const prog_char PROGMEM MSG_INTERVALOMETER[] =                    "Intervalometer";
-const prog_char PROGMEM MSG_SENSOR_TRIGGER[] =                    "Sensor Ausloes";
+const prog_char PROGMEM MSG_SENSOR_TRIGGER[] =                    "Sensor Ausl\xEFser";
 const prog_char PROGMEM MSG_CONFIG[] =                            "Konfiguration";
-const prog_char PROGMEM MSG_CONFIG_TRIGGER[] =                    "Konfig. Ausloes";
+const prog_char PROGMEM MSG_CONFIG_TRIGGER[] =                    "Konfig. Ausl\xEFser";
 const prog_char PROGMEM MSG_CONFIG_DROPS[] =                      "Konfig. Tropfen";
 const prog_char PROGMEM MSG_RUN[] =                               "Start";
 const prog_char PROGMEM MSG_RUNNING[] =                           "Aktiv...";
 const prog_char PROGMEM MSG_RESET_CONFIG[] =                      "Reset Konfig.";
 const prog_char PROGMEM MSG_AUTOFOCUS_TIME[] =                    "Autofokus Zeit";
 const prog_char PROGMEM MSG_SHUTTERLAG_TIME[] =                   "Shutterlag Zeit";
-const prog_char PROGMEM MSG_USE_FLASH1[] =                        "Blitz1 akt";
-const prog_char PROGMEM MSG_USE_FLASH2[] =                        "Blitz2 akt";
-const prog_char PROGMEM MSG_FLASH1_PRETIME[] =                    "Blitz1 Verzoeg.";
-const prog_char PROGMEM MSG_FLASH2_PRETIME[] =                    "Blitz2 Verzoeg.";
+const prog_char PROGMEM MSG_USE_FLASH1[] =                        "Blitz1 aktiv";
+const prog_char PROGMEM MSG_USE_FLASH2[] =                        "Blitz2 aktiv";
+const prog_char PROGMEM MSG_FLASH1_PRETIME[] =                    "Blitz1 Verz\xEFg.";
+const prog_char PROGMEM MSG_FLASH2_PRETIME[] =                    "Blitz2 Verz\xEFg.";
 const prog_char PROGMEM MSG_CLOSE_PRETIME[] =                     "Verschluss Verz";
 const prog_char PROGMEM MSG_INTERVAL_UNITS[] =                    "Intervall Einh.";
 const prog_char PROGMEM MSG_INTERVAL_VALUE[] =                    "Intervall Wert";
@@ -52,7 +52,7 @@ const prog_char PROGMEM MSG_ABORTING[] =                          "Abbruch...";
 const prog_char PROGMEM MSG_YES[] =                               "JA";
 const prog_char PROGMEM MSG_NO[] =                                "NEIN";
 const prog_char PROGMEM MSG_NONE[] =                              "Kein";
-const prog_char PROGMEM MSG_UNITS_US[] =                          "us";
+const prog_char PROGMEM MSG_UNITS_US[] =                          "\xE4s";
 const prog_char PROGMEM MSG_UNITS_MS[] =                          "ms";
 const prog_char PROGMEM MSG_UNITS_SECS[] =                        "Sekunden";
 const prog_char PROGMEM MSG_UNITS_MINS[] =                        "Minuten";
@@ -72,9 +72,9 @@ const prog_char PROGMEM MSG_SENSOR_TYPE_BARRIER[] =               "Lichtschranke
 const prog_char PROGMEM MSG_SENSOR_TYPE_SHOCK[] =                 "Schock";
 const prog_char PROGMEM MSG_SENSOR_TYPE_LIGHT[] =                 "Licht";
 const prog_char PROGMEM MSG_MIRROR_LOCKUP_TIMEOUT[] =             "Spiegel Timeout";
-const prog_char PROGMEM MSG_DEVICE_PORT_TYPE[] =                  "Device Typ";
+const prog_char PROGMEM MSG_DEVICE_PORT_TYPE[] =                  "Ger\xE1te Typ";
 const prog_char PROGMEM MSG_DEVICE_PORT_TYPE_LASER[] =            "Laser";
-const prog_char PROGMEM MSG_DEVICE_PORT_TYPE_SOLENOID_VALVE[] =   "Solenoid Ventil";
+const prog_char PROGMEM MSG_DEVICE_PORT_TYPE_SOLENOID_VALVE[] =   "Magnetventil";
 const prog_char PROGMEM MSG_DROPS_COUNT[] =                       "Tropfen Anzahl";
 const prog_char PROGMEM MSG_DROPS_DURATION[] =                    "Tropfen Dauer";
 const prog_char PROGMEM MSG_DROPS_INTERVAL[] =                    "Tropfen Interv.";
